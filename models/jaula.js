@@ -6,11 +6,12 @@ var Schema = mongoose.Schema;
 var JaulaSchema = new Schema({
 
 	nombre:        { type: String,  required: false },
-	linea:    { type: Schema.Types.ObjectId,ref:'Linea',    required: false }, 
-	doser:    { type: Schema.Types.ObjectId,ref:'Doser',    required: false },
-	temp:     { type: Schema.Types.ObjectId,ref:'Sensor',   required: false },
-	oxigeno:  { type: Schema.Types.ObjectId,ref:'Sensor',   required: false },
-	tipopez:  { type: Schema.Types.ObjectId,ref:'Tipopez',  required: false },
+	linea:         { type: Schema.Types.ObjectId,ref:'Linea',    required: false }, 
+	doser:         { type: Schema.Types.ObjectId,ref:'Doser',    required: false },
+	doser_med:     { type: Schema.Types.ObjectId,ref:'Doser',    required: false },
+	temp:          { type: Schema.Types.ObjectId,ref:'Sensor',   required: false },
+	oxigeno:       { type: Schema.Types.ObjectId,ref:'Sensor',   required: false },
+	tipopez:       { type: Schema.Types.ObjectId,ref:'Tipopez',  required: false },
 	kg_tot:        { type: Number,  required: false },
 	kg_visita:     { type: Number,  required: false },
 	en_ciclo:      { type: Boolean, required: false },

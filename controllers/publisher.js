@@ -1,9 +1,14 @@
 var mqtt = require('mqtt');
-//var client  = mqtt.connect('mqtt://192.168.0.18') //IP MAC
+//var client  = mqtt.connect('mqtt://192.168.0.3') //IP MAC
 var client  = mqtt.connect('mqtt://3.132.120.83') //
 var dataMqtt;
 var dataSetJaula;
 var ordenAlimentar;
+var dataSetCoefCalib;
+var ordenMueveDoserCalib;
+var dataPruebaBlower;
+var dataPruebaDoser;
+var dataPruebaSelector;
 
 client.on('connect', function () {
 	enviarMqtt();
@@ -29,7 +34,28 @@ function alimentar(){
 	client.publish('iofish/alimentar', ordenAlimentar);
 }
 
+function setCoefCalibrar(){
+	client.publish('iofish/coefcalib', dataSetCoefCalib);
+}
+
+function mueveDoserCalibrar(){
+	client.publish('iofish/muevedosercalib', ordenMueveDoserCalib);
+}
+
+function enviaPruebaBlower(){
+	client.publish('iofish/pruebablower', dataPruebaBlower);
+}
+
+function enviaPruebaDoser(){
+	client.publish('iofish/pruebadoser', dataPruebaDoser);
+}
+
+function enviaPruebaSelector(){
+	client.publish('iofish/pruebaselector', dataPruebaSelector);
+}
+
 function recibeOrden(socket){
+
 	socket.on('recibeOrden', (data) => {
 	    dataMqtt=data;	
         enviarMqtt();
@@ -42,6 +68,26 @@ function recibeOrden(socket){
 	    ordenAlimentar=data;	
         alimentar();
     });
+    socket.on('setCoefCalib', (data) => {
+	    dataSetCoefCalib=data;	
+        setCoefCalibrar();
+    });
+    socket.on('mueveDoserCalib', (data) => {
+	    ordenMueveDoserCalib=data;	
+        mueveDoserCalibrar();
+    });
+    socket.on('pruebablower', (data) => {
+	    dataPruebaBlower=data;
+        enviaPruebaBlower();
+    });
+    socket.on('pruebadoser', (data) => {
+	    dataPruebaDoser=data;	
+        enviaPruebaDoser();
+    });
+    socket.on('pruebaselector', (data) => {
+	    dataPruebaSelector=data;	
+        enviaPruebaSelector();
+    });
 }
 
 module.exports = {
@@ -49,5 +95,10 @@ module.exports = {
 	enviarMqtt,
 	setJaula,
 	alimentar,
-	setJaulaBD
+	setJaulaBD,
+	setCoefCalibrar,
+	mueveDoserCalibrar,
+	enviaPruebaBlower,
+	enviaPruebaDoser,
+	enviaPruebaSelector
 };

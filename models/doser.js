@@ -13,9 +13,12 @@ var DoserSchema = new Schema({
 	al_oc:     { type: Boolean, required: false },
 	corriente: { type: Number,  required: false },
 	hz:        { type: Number,  required: false },
-	calib_x2:  { type: Number,  required: false },
+	calib_x2:  { type: Number,  required: false }, //f(x): [grs/seg]
 	calib_x:   { type: Number,  required: false },
-	calib_c:   { type: Number,  required: false }
+	calib_c:   { type: Number,  required: false },
+	b0_x2:     { type: Number,  required: false }, //f(x): Hz
+	b1_x:      { type: Number,  required: false },
+	b2_c:      { type: Number,  required: false }
 	
 },{ collection: 'doser'});
 

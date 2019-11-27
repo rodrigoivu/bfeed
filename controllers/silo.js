@@ -78,6 +78,32 @@ function itemsTodos(req,res){
 }
 
 //================================================
+// MOSTRAR TODOS LOS ITEMS 
+//================================================
+function itemsTodosCompleto(req,res){
+	//OJO CAMBIAR NOMBRE DE COLLECCION Y CAMPOS SEGÚN LA CONSULTA
+	Silo.find({}) 
+		.populate({
+	   		path:'alimento',
+	   		select:'nombre'
+	   	})
+	    .exec(
+	   		(err, itemsFound) => {
+	   			if (err){
+	   				res.status(500).send({message: 'Error cargando items'});
+	   			}else{
+	   				//OJO CAMBIAR NOMBRE DE COLLECCION SEGÚN LA CONSULTA
+	   				Silo.countDocuments({}, (err,conteo) =>{
+	   					res.status(200).send({
+								items: itemsFound,
+								total: conteo
+						});
+	   				});
+	   			}
+	   		}
+	   	);
+}
+//================================================
 // ELIMINAR ITEM
 //================================================
 function deleteItem(req,res){
@@ -100,5 +126,6 @@ module.exports = {
 	registraItem,
 	actualizaItem,
 	itemsTodos,
+	itemsTodosCompleto,
 	deleteItem
 };

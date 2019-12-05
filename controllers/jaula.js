@@ -112,6 +112,9 @@ function itemsTodosCompleto(req,res){
 	   .populate({
 	   		path:'doser'
 	   	})
+	   .populate({
+	   		path:'doser_med'
+	   	})
 	   .populate('selector')
 	   .exec(
 	   		(err, itemsFound) => {

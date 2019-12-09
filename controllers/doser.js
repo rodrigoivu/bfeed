@@ -85,8 +85,11 @@ function itemsTodosCompleto(req,res){
 		.populate({
 	   		path:'linea'
 	   	})
-	   .populate('silo')
-	   .exec(
+	   	.populate({
+	   		path:'esclusa'
+	   	})
+	    .populate('silo')
+	    .exec(
 	   		(err, itemsFound) => {
 	   			if (err){
 	   				res.status(500).send({message: 'Error cargando items'});

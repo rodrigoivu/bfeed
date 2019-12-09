@@ -115,7 +115,7 @@ function itemsTodosCompleto(req,res){
 	   .populate({
 	   		path:'doser_med'
 	   	})
-	   .populate('selector')
+	   //.populate('selector')
 	   .exec(
 	   		(err, itemsFound) => {
 	   			if (err){

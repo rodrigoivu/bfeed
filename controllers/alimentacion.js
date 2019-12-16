@@ -147,6 +147,55 @@ function itemsTodosDia(req,res){
 }
 
 //================================================
+// MOSTRAR RANGO DE FECHAS
+//================================================
+function itemDia(req,res){
+	var desde = req.query.hoy;
+	var hasta = req.query.hasta;
+	var idjaula = req.query.idjaula;
+	//OJO CAMBIAR NOMBRE DE COLLECCION Y CAMPOS SEGÚN LA CONSULTA
+	Alimentacion.find({ 'jaula': idjaula, 
+						ts : {
+					    '$gte': (new Date(desde)).getTime(),
+					    '$lte': (new Date(hasta)).getTime()
+						}
+					})
+		.populate({
+	   		path:'jaula',
+	   		select:'nombre'
+	   	})
+		.populate({
+	   		path:'alimento',
+	   		select:'nombre'
+	   	})
+	   	.populate({
+	   		path:'silo',
+	   		select:'nombre'
+	   	})
+	    .sort([['ts', 1]])
+	    //.maxTimeMS(300)
+	    .exec(
+	   		(err, itemsFound) => {
+	   			if (err){
+	   				res.status(500).send({message: 'Error cargando items'});
+	   			}else{
+	   				if(!itemsFound){
+						res.status(404).send({message: 'Imposible mostrar información'});
+					}else{
+						//OJO CAMBIAR NOMBRE DE COLLECCION Y CAMPOS SEGÚN LA CONSULTA
+		   				Alimentacion.countDocuments({}, (err,conteo) =>{
+		   					res.status(200).send({
+								items: itemsFound,
+								total: conteo
+							});
+		   				});
+		   			}
+	   			}
+	   		}
+	   	);
+}
+
+//================================================
 // ELIMINAR ITEM
 //================================================
 function deleteItem(req,res){
@@ -170,5 +219,6 @@ module.exports = {
 	itemsRangoFechas,
 	itemsRangoUltimos,
 	itemsTodosDia,
+	itemDia,
 	deleteItem
 };

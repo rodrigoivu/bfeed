@@ -106,7 +106,7 @@ function itemsTodosDia(req,res){
 	var desde = req.query.desde;
 	var hasta = req.query.hasta;
 	//OJO CAMBIAR NOMBRE DE COLLECCION Y CAMPOS SEGÚN LA CONSULTA
-	Alimentacion.find({ ts : {
+	Alimentacion.find({ 'jaula': idjaula, ts : {
 					    '$gte': (new Date(desde)).getTime(),
 					    '$lte': (new Date(hasta)).getTime()
 						}
@@ -150,12 +150,11 @@ function itemsTodosDia(req,res){
 // MOSTRAR RANGO DE FECHAS
 //================================================
 function itemDia(req,res){
-	var desde = req.query.hoy;
+	var desde = req.query.desde;
 	var hasta = req.query.hasta;
 	var idjaula = req.query.idjaula;
 	//OJO CAMBIAR NOMBRE DE COLLECCION Y CAMPOS SEGÚN LA CONSULTA
-	Alimentacion.find({ 'jaula': idjaula, 
-						ts : {
+	Alimentacion.find({ ts : {
 					    '$gte': (new Date(desde)).getTime(),
 					    '$lte': (new Date(hasta)).getTime()
 						}

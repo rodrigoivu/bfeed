@@ -165,7 +165,7 @@ function itemDia(req,res){
 	   	})
 		.populate({
 	   		path:'alimento',
-	   		select:'nombre'
+	   		select:['nombre','medicado']
 	   	})
 	   	.populate({
 	   		path:'silo',

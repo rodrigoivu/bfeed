@@ -81,7 +81,6 @@ function saveJaulaDataToAlimentación(item){
 
 
 	if(item.BD == 1){
-
 		var jaulaSel;
 		var dataAlim = new Alimentacion;
 		var ts = new Date();

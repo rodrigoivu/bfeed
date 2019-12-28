@@ -1,7 +1,7 @@
 var mqtt = require('mqtt');
-//var client  = mqtt.connect('mqtt://192.168.0.3') //IP MAC
+var client  = mqtt.connect('mqtt://192.168.0.2') //IP MAC
 //var client  = mqtt.connect('mqtt://3.132.120.83') // AWS BLUFEEDER
-var client  = mqtt.connect('mqtt://42.93.249.99') //IMATEK DEMO
+//var client  = mqtt.connect('mqtt://42.93.249.99') //IMATEK DEMO
 var dataMqtt;
 var dataSetJaula;
 var ordenAlimentar;

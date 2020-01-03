@@ -111,7 +111,7 @@ function saveJaulaDataToAlimentación(item){
 						   			if (err1){
 						   				console.log(err1);
 						   			}else{
-						   				console.log(itemsFound1.length);
+						   				
 						   				if (itemsFound1.length >= item.JA){
 						   					jaulaSel = itemsFound1[item.JA-1];
 							   				var alimento;
@@ -159,53 +159,8 @@ function saveJaulaDataToAlimentación(item){
 														
 													}
 												}
-											});jaulaSel = itemsFound1[item.JA-1];
-							   				var alimento;
-							   				var silo;
-							   				if(item.MS == 1){  //MS: Medicado Select  1: está seleccionado doser medicado
-							   					alimento = jaulaSel.doser_med.silo.alimento;
-							   					silo     = jaulaSel.doser_med.silo;
-
-							   				}
-							   				if(item.MS == 0){
-							   					alimento = jaulaSel.doser.silo.alimento;
-							   					silo     = jaulaSel.doser.silo;
-							   				}
-
-							   				dataAlim = new Alimentacion({
-									   					jaula    : jaulaSel._id,
-														ts       : ts, 
-														grs      : item.DC,
-														kg_min   : jaulaSel.kg_min,
-														ppm      : jaulaSel.ppm,
-														ppv      : jaulaSel.ppv,
-														alimento : alimento,
-														silo     : silo
-									   				});
-
-							   				var saldoActual = silo.saldo;
-							   				var saldoNuevo  = saldoActual - item.DC/1000;
-							   				var siloId = silo._id;
-
-							   				//GUARDAR EN ALIMENTACIÓN HISTORUCA
-							   				dataAlim.save((err, itemStored) => {
-												if(err){
-													console.log(err);
-												}else{
-													if(!itemStored){
-														console.log('Imposible actualizar item');
-													}else{
-														//ACTUALIZAR SILO
-														
-
-														actualizarSilo(siloId,saldoNuevo);
-
-														PublisherController.setJaulaBD(item.LI,item.JA);
-
-														
-													}
-												}
 											});
+											
 							   			}else{
 							   				PublisherController.setJaulaBD(item.LI,item.JA);
 							   			}

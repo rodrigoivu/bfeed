@@ -39,8 +39,9 @@ var JaulaSchema = new Schema({
 	diametro:      { type: Number,  required: false },
 	min_visita:    { type: Number,  required: false },
 	hz_blower:     { type: Number,  required: false },
-	manual:        { type: Boolean,  required: false },
+	manual:        { type: Boolean, required: false },
 	obj_med:       { type: Number,  required: false }, //Objetivo correspondiente a medicado en %
+	med_sel:       { type: Boolean, required: false }, //Indica si está alimentando con el objetivo de medicado. true:con medicado false: normal
 
 },{ collection: 'jaula'});
 

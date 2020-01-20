@@ -17,4 +17,4 @@ var TasasSchema = new Schema({
 
 //EventoSchema.plugin( uniqueValidator, { message: '{PATH} debe ser único'}) //afecta a los campos con unique: true. PATH toma el valor del campo correspondiente
 
-module.exports = mongoose.model('Tasas', tasasSchema);
+module.exports = mongoose.model('Tasas', TasasSchema);

@@ -25,6 +25,7 @@ var Plan_routes              = require('./routes/plan');
 var Configcalibracion_routes = require('./routes/configcalibracion');
 var Datacalibracion_routes   = require('./routes/datacalibracion');
 var Datasilos_routes         = require('./routes/datasilos');
+var Tasas_routes         = require('./routes/tasas');
 
 
 // create application/x-www-form-urlencoded parser
@@ -61,6 +62,7 @@ app.use( '/api', Plan_routes              );
 app.use( '/api', Configcalibracion_routes );
 app.use( '/api', Datacalibracion_routes   );
 app.use( '/api', Datasilos_routes         );
+app.use( '/api', Tasas_routes         );
 
 app.get('*', function(req,res,next){
 	res.sendFile(path.resolve('./client/index.html'));

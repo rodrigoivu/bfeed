@@ -8,6 +8,8 @@ var Tasas = require('../models/tasas');
 function registraItem(req,res){
 	//OJO CAMBIAR NOMBRE DE COLLECCION SEGÚN LA CONSULTA
 	var item = new Tasas(req.body);
+	var ts = new Date();
+	item.ts = ts;
 	//OJO CAMBIAR CONDICIONES SEGÚN MODELO
 	item.save((err, itemStored) => {
 		if(err){

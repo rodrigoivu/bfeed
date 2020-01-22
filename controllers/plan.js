@@ -41,7 +41,9 @@ function registraItem(){
 						finalim:'21:00',
 						hrsnoalim:4,
 						hrsdisponible:14,
-						hrsefectivas:10
+						hrsefectivas:10,
+						centro:'',
+						idcentro:''
 					});
 	//OJO CAMBIAR CONDICIONES SEGÚN MODELO
 	item.save((err, itemStored) => {

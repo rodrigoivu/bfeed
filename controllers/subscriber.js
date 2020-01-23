@@ -60,17 +60,17 @@ client.on('message', (topic, message) => {
 	}
 
 	if(topic == 'iofish/alarmablower'){
-   		//console.log(items);
+   		console.log(items);
 		saveAlarmaBlower(items);
 	}
 
 	if(topic == 'iofish/alarmadoser'){
-   		//console.log(items);
+   		console.log(items);
 		saveAlarmaDoser(items);
 	}
 
 	if(topic == 'iofish/alarmaselector'){
-   		//console.log(items);
+   		console.log(items);
 		saveAlarmaSelector(items);
 	}
 
@@ -227,30 +227,30 @@ function saveAlarmaBlower(item){
 		   				console.log(err);
 		   			}else{
 		   				var lineaSel=itemsFound[item.LI-1];
-		   				
-		   				//ACTUALIZAR ALARMA
-						var alarmablower = new Alarmasblower({
-										blower   : lineaSel.blower,
-										detalle : item.DT,
-										ts      : ts
-									});
-		   				//GUARDAR EN ALARMAS  HISTORUCA
-		   				alarmablower.save((err, itemStored) => {
-							if(err){
-								console.log(err);
-							}else{
-								if(!itemStored){
-									console.log('Imposible actualizar item');
+		   				console.log(lineaSel);
+		   				if(lineaSel){
+		   					//ACTUALIZAR ALARMA
+							var alarmablower = new Alarmasblower({
+											blower   : lineaSel.blower,
+											detalle : item.DT,
+											ts      : ts
+										});
+			   				//GUARDAR EN ALARMAS  HISTORUCA
+			   				alarmablower.save((err, itemStored) => {
+								if(err){
+									console.log(err);
 								}else{
-									
-							
+									if(!itemStored){
+										console.log('Imposible actualizar item');
+									}else{
+										
+								
+									}
 								}
-							}
-						});
-
+							});
+		   				}
 		   			}
 		   	});
-
 }
 
 function saveAlarmaDoser(item){
@@ -263,35 +263,39 @@ function saveAlarmaDoser(item){
 		   				console.log(err);
 		   			}else{
 		   				var lineaSel=itemsFound[item.LI-1];
-
-		   				Doser.find({'linea': lineaSel._id}) 
-						   .exec(
-						   		(err, itemsFound1) => {
-						   			if (err){
-						   				console.log(err);
-						   			}else{
-						   				doserSel = itemsFound1[item.DS-1];
-						   				//ACTUALIZAR ALARMA
-										var alarmadoser = new Alarmasdoser({
-														doser   : doserSel._id,
-														detalle : item.DT,
-														ts      : ts
-													});
-						   				//GUARDAR EN ALARMAS  HISTORUCA
-						   				alarmadoser.save((err, itemStored) => {
-											if(err){
-												console.log(err);
-											}else{
-												if(!itemStored){
-													console.log('Imposible actualizar item');
-												}else{
+		   				console.log(lineaSel);
+		   				if (lineaSel){
+		   					Doser.find({'linea': lineaSel._id}) 
+							   .exec(
+							   		(err, itemsFound1) => {
+							   			if (err){
+							   				console.log(err);
+							   			}else{
+							   				doserSel = itemsFound1[item.DS-1];
+							   				if(doserSel){
+							   					//ACTUALIZAR ALARMA
+												var alarmadoser = new Alarmasdoser({
+																doser   : doserSel._id,
+																detalle : item.DT,
+																ts      : ts
+															});
+								   				//GUARDAR EN ALARMAS  HISTORUCA
+								   				alarmadoser.save((err, itemStored) => {
+													if(err){
+														console.log(err);
+													}else{
+														if(!itemStored){
+															console.log('Imposible actualizar item');
+														}else{
+															
 													
-											
-												}
-											}
-										});
-						   			}
-						   	});
+														}
+													}
+												});
+							   				}
+							   			}
+							   	});
+		   				}
 		   			}
 		   	});
 }
@@ -305,25 +309,29 @@ function saveAlarmaSelector(item){
 		   				console.log(err);
 		   			}else{
 		   				var lineaSel=itemsFound[item.LI-1];
-		   				//ACTUALIZAR ALARMA
-						var alarmaselector = new Alarmasselector({
-										selector : lineaSel.selector,
-										detalle  : item.DT,
-										ts       : ts
-									});
-		   				//GUARDAR EN ALARMAS  HISTORICA
-		   				alarmaselector.save((err, itemStored) => {
-							if(err){
-								console.log(err);
-							}else{
-								if(!itemStored){
-									console.log('Imposible actualizar item');
+		   				console.log(lineaSel);
+		   				if (lineaSel) {
+		   					//ACTUALIZAR ALARMA
+							var alarmaselector = new Alarmasselector({
+											selector : lineaSel.selector,
+											detalle  : item.DT,
+											ts       : ts
+										});
+			   				//GUARDAR EN ALARMAS  HISTORICA
+			   				alarmaselector.save((err, itemStored) => {
+								if(err){
+									console.log(err);
 								}else{
-									
-							
+									if(!itemStored){
+										console.log('Imposible actualizar item');
+									}else{
+										
+								
+									}
 								}
-							}
-						});
+							});
+		   				}
+		   				
 
 		   			}
 		   	});

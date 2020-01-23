@@ -3,6 +3,10 @@ var Jaula = require('../models/jaula');
 var Alimentacion = require('../models/alimentacion');
 var Linea = require('../models/linea');
 var Silo = require('../models/silo');
+var Alarmasblower = require('../models/alarmasblower');
+var Alarmasdoser = require('../models/alarmasdoser');
+var Alarmasselector = require('../models/alarmasselector');
+var Doser = require('../models/doser');
 var PublisherController  = require('./publisher');
 //var Controllerbateriaharnero = require('../controllers/bateriaharnero');
 
@@ -20,6 +24,9 @@ client.on('connect', () => {
 	client.subscribe('iofish/cuentamuevedosercalib');
 	client.subscribe('iofish/okmuevedosercalib');
     client.subscribe('iofish/calibrar');
+    client.subscribe('iofish/alarmablower');
+    client.subscribe('iofish/alarmadoser');
+    client.subscribe('iofish/alarmaselector');
     client.subscribe('outTopic');
 })
 client.on('message', (topic, message) => {
@@ -50,6 +57,21 @@ client.on('message', (topic, message) => {
 	if(topic == 'iofish/okmuevedosercalib'){
    		//console.log(items);
 		mensajeOkMueveDoserCalib(items);
+	}
+
+	if(topic == 'iofish/alarmablower'){
+   		//console.log(items);
+		saveAlarmaBlower(items);
+	}
+
+	if(topic == 'iofish/alarmadoser'){
+   		//console.log(items);
+		saveAlarmaDoser(items);
+	}
+
+	if(topic == 'iofish/alarmaselector'){
+   		//console.log(items);
+		saveAlarmaSelector(items);
 	}
 
 
@@ -151,8 +173,7 @@ function saveJaulaDataToAlimentación(item){
 													}else{
 														//ACTUALIZAR SILO
 														
-
-														actualizarSilo(siloId,saldoNuevo);
+   														actualizarSilo(siloId,saldoNuevo);
 
 														PublisherController.setJaulaBD(item.LI,item.JA);
 
@@ -197,6 +218,117 @@ function actualizarSilo(siloId,saldoNuevo){
 	});
 }
 
+function saveAlarmaBlower(item){
+	var ts = new Date();
+	Linea.find({}) 
+		   .exec(
+		   		(err, itemsFound) => {
+		   			if (err){
+		   				console.log(err);
+		   			}else{
+		   				var lineaSel=itemsFound[item.LI-1];
+		   				
+		   				//ACTUALIZAR ALARMA
+						var alarmablower = new Alarmasblower({
+										blower   : lineaSel.blower,
+										detalle : item.DT,
+										ts      : ts
+									});
+		   				//GUARDAR EN ALARMAS  HISTORUCA
+		   				alarmablower.save((err, itemStored) => {
+							if(err){
+								console.log(err);
+							}else{
+								if(!itemStored){
+									console.log('Imposible actualizar item');
+								}else{
+									
+							
+								}
+							}
+						});
+
+		   			}
+		   	});
+
+}
+
+function saveAlarmaDoser(item){
+	var doserSel;
+	var ts = new Date();
+	Linea.find({}) 
+		   .exec(
+		   		(err, itemsFound) => {
+		   			if (err){
+		   				console.log(err);
+		   			}else{
+		   				var lineaSel=itemsFound[item.LI-1];
+
+		   				Doser.find({'linea': lineaSel._id}) 
+						   .exec(
+						   		(err, itemsFound1) => {
+						   			if (err){
+						   				console.log(err);
+						   			}else{
+						   				doserSel = itemsFound1[item.DS-1];
+						   				//ACTUALIZAR ALARMA
+										var alarmadoser = new Alarmasdoser({
+														doser   : doserSel._id,
+														detalle : item.DT,
+														ts      : ts
+													});
+						   				//GUARDAR EN ALARMAS  HISTORUCA
+						   				alarmadoser.save((err, itemStored) => {
+											if(err){
+												console.log(err);
+											}else{
+												if(!itemStored){
+													console.log('Imposible actualizar item');
+												}else{
+													
+											
+												}
+											}
+										});
+						   			}
+						   	});
+		   			}
+		   	});
+}
+
+function saveAlarmaSelector(item){
+	var ts = new Date();
+	Linea.find({}) 
+		   .exec(
+		   		(err, itemsFound) => {
+		   			if (err){
+		   				console.log(err);
+		   			}else{
+		   				var lineaSel=itemsFound[item.LI-1];
+		   				//ACTUALIZAR ALARMA
+						var alarmaselector = new Alarmasselector({
+										selector : lineaSel.selector,
+										detalle  : item.DT,
+										ts       : ts
+									});
+		   				//GUARDAR EN ALARMAS  HISTORICA
+		   				alarmaselector.save((err, itemStored) => {
+							if(err){
+								console.log(err);
+							}else{
+								if(!itemStored){
+									console.log('Imposible actualizar item');
+								}else{
+									
+							
+								}
+							}
+						});
+
+		   			}
+		   	});
+}
+
 function asignarSocket(socket,io){
     socketLocal=socket;
     ioLocal=io;
@@ -238,7 +370,7 @@ function mensajeCuentaMueveDoserCalib(data){
 	}
 }
 
-function mensajeOkMueveDoserCalib(data){
+function saveAlarmaBlower(data){
 	if(socketLocal){
 		ioLocal.emit('okMueveDoserCalib',{data: data});
 	}

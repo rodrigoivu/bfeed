@@ -379,7 +379,7 @@ function mensajeCuentaMueveDoserCalib(data){
 	}
 }
 
-function saveAlarmaBlower(data){
+function mensajeOkMueveDoserCalib(data){
 	if(socketLocal){
 		ioLocal.emit('okMueveDoserCalib',{data: data});
 	}

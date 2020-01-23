@@ -65,12 +65,12 @@ client.on('message', (topic, message) => {
 	}
 
 	if(topic == 'iofish/alarmadoser'){
-   		console.log(items);
+   		//console.log(items);
 		saveAlarmaDoser(items);
 	}
 
 	if(topic == 'iofish/alarmaselector'){
-   		console.log(items);
+   		//console.log(items);
 		saveAlarmaSelector(items);
 	}
 
@@ -226,8 +226,11 @@ function saveAlarmaBlower(item){
 		   			if (err){
 		   				console.log(err);
 		   			}else{
+		   				console.log("blower ini");
+		   				console.log(itemsFound);
 		   				var lineaSel=itemsFound[item.LI-1];
 		   				console.log(lineaSel);
+		   				console.log("blower fin");
 		   				if(lineaSel){
 		   					//ACTUALIZAR ALARMA
 							var alarmablower = new Alarmasblower({
@@ -263,7 +266,6 @@ function saveAlarmaDoser(item){
 		   				console.log(err);
 		   			}else{
 		   				var lineaSel=itemsFound[item.LI-1];
-		   				console.log(lineaSel);
 		   				if (lineaSel){
 		   					Doser.find({'linea': lineaSel._id}) 
 							   .exec(
@@ -309,7 +311,6 @@ function saveAlarmaSelector(item){
 		   				console.log(err);
 		   			}else{
 		   				var lineaSel=itemsFound[item.LI-1];
-		   				console.log(lineaSel);
 		   				if (lineaSel) {
 		   					//ACTUALIZAR ALARMA
 							var alarmaselector = new Alarmasselector({

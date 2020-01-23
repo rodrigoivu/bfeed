@@ -60,7 +60,7 @@ client.on('message', (topic, message) => {
 	}
 
 	if(topic == 'iofish/alarmablower'){
-   		console.log(items);
+   		//console.log(items);
 		saveAlarmaBlower(items);
 	}
 
@@ -226,11 +226,9 @@ function saveAlarmaBlower(item){
 		   			if (err){
 		   				console.log(err);
 		   			}else{
-		   				console.log("blower ini");
-		   				console.log(itemsFound);
+
 		   				var lineaSel=itemsFound[item.LI-1];
-		   				console.log(lineaSel);
-		   				console.log("blower fin");
+
 		   				if(lineaSel){
 		   					//ACTUALIZAR ALARMA
 							var alarmablower = new Alarmasblower({

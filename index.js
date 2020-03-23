@@ -14,12 +14,13 @@ var SubscriberController = require('./controllers/subscriber');
 var PublisherController  = require('./controllers/publisher');
 var plan = require('./controllers/plan');
 var configcalibracion = require('./controllers/configcalibracion');
+var blucontrol = require('./controllers/blucontrol');
 
 //mongoose: comandos para manejo de mongodb
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 //Conectar a la base de datos mongodb
-mongoose.connect('mongodb://localhost:27017/iofishcloud',{ useCreateIndex: true, useNewUrlParser: true },(err,res) => {  //useNewUrlParser agregado por el error de depreciacion
+mongoose.connect('mongodb://localhost:27017/iofishcloud',{ useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true },(err,res) => {  //useNewUrlParser agregado por el error de depreciacion
 if (err) {
 	throw err;
 }else{
@@ -31,6 +32,7 @@ if (err) {
 	    //Config inical
 	    plan.crearItem();
 	    configcalibracion.crearItem();
+	    blucontrol.crearItem();
 	});
 
 	const io = socket.listen(server,{

@@ -29,6 +29,7 @@ var Tasas_routes             = require('./routes/tasas');
 var Alarmasblower_routes     = require('./routes/alarmasblower');
 var Alarmasdoser_routes      = require('./routes/alarmasdoser');
 var Alarmasselector_routes   = require('./routes/alarmasselector');
+var Blucontrol_routes        = require('./routes/blucontrol');
 
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({extended:false}));
@@ -68,6 +69,7 @@ app.use( '/api', Tasas_routes             );
 app.use( '/api', Alarmasblower_routes     );
 app.use( '/api', Alarmasdoser_routes      );
 app.use( '/api', Alarmasselector_routes   );
+app.use( '/api', Blucontrol_routes        );
 
 app.get('*', function(req,res,next){
 	res.sendFile(path.resolve('./client/index.html'));

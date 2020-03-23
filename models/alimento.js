@@ -5,11 +5,12 @@ var Schema = mongoose.Schema;
 
 var AlimentoSchema = new Schema({
 
-	nombre:   { type: String,  required: false },
-	empresa:  { type: String,  required: false }, 
-	codigo:   { type: String,  required: false },
-	medicado: { type: Boolean, required: false },
-	ppk:      { type: Number,  required: false }
+	nombre       : { type: String,  required: false },
+	empresa      : { type: String,  required: false }, 
+	codigo       : { type: String,  required: false },
+	medicado     : { type: Boolean, required: false },
+	ppk          : { type: Number,  required: false },
+	id_blucontrol: { type: Number,  required: false },
 	
 },{ collection: 'alimento'});
 

@@ -117,7 +117,7 @@ function itemsTodosDia(req,res){
 	   	})
 		.populate({
 	   		path:'alimento',
-	   		select:['nombre','medicado']
+	   		select:['nombre','medicado','codigo','id_blucontrol']
 	   	})
 	   	.populate({
 	   		path:'silo',

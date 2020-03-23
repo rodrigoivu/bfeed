@@ -42,7 +42,7 @@ var JaulaSchema = new Schema({
 	manual:        { type: Boolean, required: false },
 	obj_med:       { type: Number,  required: false }, //Objetivo correspondiente a medicado en %
 	med_sel:       { type: Boolean, required: false }, //Indica si está alimentando con el objetivo de medicado. true:con medicado false: normal
-
+	aliasJaula:    { type: String,  required: false },
 },{ collection: 'jaula'});
 
 //EventoSchema.plugin( uniqueValidator, { message: '{PATH} debe ser único'}) //afecta a los campos con unique: true. PATH toma el valor del campo correspondiente

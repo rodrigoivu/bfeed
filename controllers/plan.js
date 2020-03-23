@@ -43,7 +43,8 @@ function registraItem(){
 						hrsdisponible:14,
 						hrsefectivas:10,
 						centro:'',
-						idcentro:''
+						idcentro:'',
+						minutosVisita:1.5
 					});
 	//OJO CAMBIAR CONDICIONES SEGÚN MODELO
 	item.save((err, itemStored) => {

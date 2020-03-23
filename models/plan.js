@@ -14,7 +14,8 @@ var PlanSchema = new Schema({
 	hrsdisponible:{ type: Number, required: false },
 	hrsefectivas: { type: Number, required: false },
 	centro :      { type: String, required: false },
-	idcentro :    { type: String, required: false }, 
+	idcentro :    { type: String, required: false },
+	minutosVisita:{ type: Number, required: false },
 	
 },{ collection: 'plan'});
 

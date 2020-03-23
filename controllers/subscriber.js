@@ -12,8 +12,9 @@ var PublisherController  = require('./publisher');
 
 var socketLocal; // se rescata del index.js
 var ioLocal; // se rescata del index.js
-var client  = mqtt.connect('mqtt://192.168.0.38') // IP MAC
-//var client  = mqtt.connect('mqtt://3.132.120.83') // AWS BLUFEEDER
+//var client  = mqtt.connect('mqtt://192.168.0.5') //IP MAC
+//var client  = mqtt.connect('mqtt://192.168.0.38') //Local Blufeeder
+var client  = mqtt.connect('mqtt://3.132.120.83') // AWS BLUFEEDER
 //var client  = mqtt.connect('mqtt://42.93.249.99') //IMATEK DEMO
 
 var ventanaAudio= false;
@@ -33,7 +34,9 @@ client.on('message', (topic, message) => {
 
     var items;
    	items = JSON.parse(message);
+
    	if(topic == 'iofish/ciclo'){
+   		
 		saveJaulaDataToAlimentación(items);
 		
 	}

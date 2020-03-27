@@ -113,7 +113,7 @@ function itemsTodosDia(req,res){
 					})
 		.populate({
 	   		path:'jaula',
-	   		select:'nombre'
+	   		select:['nombre','aliasJaula']
 	   	})
 		.populate({
 	   		path:'alimento',
@@ -147,7 +147,7 @@ function itemsTodosDia(req,res){
 }
 
 //================================================
-// MOSTRAR RANGO DE FECHAS
+// MOSTRAR Dia
 //================================================
 function itemDia(req,res){
 	var desde = req.query.desde;
@@ -161,11 +161,11 @@ function itemDia(req,res){
 					})
 		.populate({
 	   		path:'jaula',
-	   		select:'nombre'
+	   		select:['nombre','aliasJaula']
 	   	})
 		.populate({
 	   		path:'alimento',
-	   		select:['nombre','medicado']
+	   		select:['nombre','medicado','codigo','id_blucontrol']
 	   	})
 	   	.populate({
 	   		path:'silo',
